@@ -144,6 +144,18 @@ reload_ruleset()
 	load_snat
 }
 
+reload_ruleset_dnat_only()
+{
+	reload_ruleset_base
+	load_dnat
+}
+
+reload_ruleset_snat_only()
+{
+	reload_ruleset_base
+	load_snat
+}
+
 dd if=/dev/urandom of="$INFILE" bs=4096 count=1 2>/dev/null
 chmod 755 $INFILE
 assert_pass "Prepare the file for FTP transmission"
@@ -190,9 +202,29 @@ reload_ruleset
 test_case "Passive mode" "[${ip_rc}]:2121" ${ip_rs}
 
 
+# test passive mode DNAT only
+reload_ruleset_dnat_only
+test_case "Passive mode DNAT only" "[${ip_rc}]:2121" ${ip_cr}
+
+
+# test passive mode SNAT only
+reload_ruleset_snat_only
+test_case "Passive mode SNAT only" "[${ip_sr}]:21" ${ip_rs}
+
+
 # test active mode
 reload_ruleset
 test_case "Active mode" "[${ip_rc}]:2121" ${ip_rs} "-P -"
+
+
+# test active mode DNAT only
+reload_ruleset_dnat_only
+test_case "Active mode DNAT only" "[${ip_rc}]:2121" ${ip_cr} "-P -"
+
+
+# test active mode SNAT only
+reload_ruleset_snat_only
+test_case "Active mode SNAT only" "[${ip_sr}]:21" ${ip_rs} "-P -"
 
 # trap calls cleanup
 exit 0
