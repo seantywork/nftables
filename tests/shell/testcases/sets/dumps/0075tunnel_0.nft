@@ -57,7 +57,7 @@ table netdev x {
 	}
 
 	chain x {
-		type filter hook ingress priority filter; policy accept;
+		type filter hook ingress device "lo" priority filter; policy accept;
 		tunnel name ip saddr map { 10.141.10.123 : "geneve-t", 10.141.10.124 : "vxlan-t", 10.141.10.125 : "erspan-tv1", 10.141.10.126 : "erspan-tv2" } counter packets 0 bytes 0
 	}
 }

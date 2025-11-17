@@ -20,6 +20,7 @@
         "table": "x",
         "name": "x",
         "handle": 0,
+        "dev": "lo",
         "type": "filter",
         "hook": "ingress",
         "prio": 0,
