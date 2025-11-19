@@ -1499,6 +1499,9 @@ static int do_add_setelems(struct netlink_ctx *ctx, struct cmd *cmd,
 {
 	struct set *set = cmd->set;
 
+	if (!set->init)
+		return 0;
+
 	return __do_add_elements(ctx, cmd, set, set->init, flags);
 }
 
