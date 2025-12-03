@@ -319,7 +319,6 @@ if BUILD_AFL
 noinst_PROGRAMS += tools/nft-afl
 
 tools_nft_afl_SOURCES = tools/nft-afl.c
-tools_nft_afl_SOURCES += -I$(srcdir)/include
 tools_nft_afl_LDADD = src/libnftables.la
 endif
 
